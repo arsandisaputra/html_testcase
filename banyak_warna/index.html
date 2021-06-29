@@ -1,1 +1,46 @@
-<h1>Hello World</h1>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body onload="loadXMLDoc()">
+    <!-- <button type="button" onclick="loadXMLDoc()">Get my CD collection</button> -->
+    <div class="flex items-center justify-center flex-wrap" id="xmlColor">
+    </div>
+    <table id="xmlColor" border="1"></table>
+    <script>
+        function loadXMLDoc() {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    myFunction(this);
+                }
+            };
+            xmlhttp.open("GET", "ColorNames.xml", true);
+            xmlhttp.send();
+        }
+        function myFunction(xml) {
+            var i;
+            var xmlDoc = xml.responseXML;
+            var divs = "";
+            var x = xmlDoc.getElementsByTagName("color");
+            for (i = 0; i < x.length; i++) {
+                var name = x[i].getElementsByTagName("name")[0].childNodes[0].nodeValue
+                divs += "<div class='px-2 py-2 flex flex-col'>" +
+                    "<div class='border-r-2 border-t-2 border-l-2 border-gray-800 h-20 w-44 flex justify-center items-center' style='background-color:" + name + "'></div>" +
+                    "<div class='border-2 border-gray-800 text-center'><span>" +
+                    name + "</span></div>" +
+                    "</div>";
+            }
+            document.getElementById("xmlColor").innerHTML = divs;
+        }
+    </script>
+</body>
+
+</html>

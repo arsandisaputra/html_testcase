@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-200 w-screen h-screen py-8">
+    <div class="bg-gray-800 h-full max-w-md mx-auto flex flex-col justify-end items-end rounded-lg">
+        <div class="w-full px-4 pb-2 flex">
+            <input type="text"
+                class="bg-gray-600 w-11/12 rounded-full px-4 py-2 text-gray-800 border border-black focus:outline-none"
+                placeholder="Klik Disini">
+            <div
+                class="ml-2 h-10 w-10 bg-green-400 rounded-full shadow-md border border-gray-600 flex justify-center items-center text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                        d="M7 4a3 3 0 016 0v4a3 3 0 11-6 0V4zm4 10.93A7.001 7.001 0 0017 8a1 1 0 10-2 0A5 5 0 015 8a1 1 0 00-2 0 7.001 7.001 0 006 6.93V17H6a1 1 0 100 2h8a1 1 0 100-2h-3v-2.07z"
+                        clip-rule="evenodd" />
+                </svg>
+            </div>
+        </div>
+        <div class="w-full h-56 bg-gray-900 rounded-b-lg">
+
+        </div>
+    </div>
+    <script>
+        function loadXMLDoc() {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    myFunction(this);
+                }
+            };
+            xmlhttp.open("GET", "ColorNames.xml", true);
+            xmlhttp.send();
+        }
+        function myFunction(xml) {
+            var i;
+            var xmlDoc = xml.responseXML;
+            var divs = "";
+            var x = xmlDoc.getElementsByTagName("color");
+            for (i = 0; i < x.length; i++) {
+                var name = x[i].getElementsByTagName("name")[0].childNodes[0].nodeValue
+                divs += "<div class='px-2 py-2 flex flex-col'>" +
+                    "<div class='border-r-2 border-t-2 border-l-2 border-gray-800 h-20 w-96 md:w-56 flex justify-center items-center' style='background-color:" + name + "'></div>" +
+                    "<div class='border-2 border-gray-800 text-center'><span>" +
+                    name + "</span></div>" +
+                    "</div>";
+            }
+            document.getElementById("xmlColor").innerHTML = divs;
+        }
+    </script>
+</body>
+
+</html>
